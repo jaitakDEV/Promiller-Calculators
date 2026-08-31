@@ -162,6 +162,103 @@
 // const gradientBg =
 //   "bg-[linear-gradient(90deg,#F2843C_0%,#B56AD1_55%,#8B5FE0_100%)]";
 
+// const howItWorksSteps = [
+//   {
+//     step: "01",
+//     title: "Pick your calculator",
+//     text: "Choose Atta Pricing, Conveying Capacity, or Power Saving, whichever number you need right now.",
+//   },
+//   {
+//     step: "02",
+//     title: "Enter your mill's numbers",
+//     text: "Wheat rate, tariff, run hours, throughput whatever's relevant. No sign-up, no spreadsheet.",
+//   },
+//   {
+//     step: "03",
+//     title: "Get your answer instantly",
+//     text: "Every field recalculates live. Change one input and see the impact across the board in real time.",
+//   },
+//   {
+//     step: "04",
+//     title: "Act on it with confidence",
+//     text: "Print your price sheet, size your equipment, or take your savings number into a ProMiller conversation.",
+//   },
+// ];
+
+// const testimonials = [
+//   {
+//     name: "Rakesh Agarwal",
+//     mill: "Agarwal Flour Mills, Rajasthan",
+//     quote:
+//       "We were pricing atta on gut feel for years. The pricing calculator showed us we were leaving margin on the table every single day.",
+//   },
+//   {
+//     name: "Suresh Patel",
+//     mill: "Patel Chakki Udyog, Gujarat",
+//     quote:
+//       "The conveying calculator caught that our elevator was oversized by almost 30%. That's real money back every month.",
+//   },
+//   {
+//     name: "Manoj Kumar",
+//     mill: "Kumar Roller Flour Mills, UP",
+//     quote:
+//       "Ran the power saving calculator before we even spoke to the ProMiller team. The number it gave us was almost exactly what we ended up saving.",
+//   },
+// ];
+
+// const faqs = [
+//   {
+//     q: "Do I need to sign up or pay to use these calculators?",
+//     a: "No. All three calculators are free to use and don't require any login. Enter your numbers and get your answer in under 30 seconds.",
+//   },
+//   {
+//     q: "How accurate are the results?",
+//     a: "The Atta Pricing and Power Saving calculators use the actual cost structure of a chakki atta operation — including inputs most generic tools ignore, like bran credit. The Conveying calculator follows CEMA standard engineering formulae adapted for Indian mill conditions.",
+//   },
+//   {
+//     q: "Can I use these if I'm not currently a ProMiller customer?",
+//     a: "Yes. These tools are useful for any mill trying to price accurately, right-size equipment, or estimate power costs — regardless of what equipment you currently run.",
+//   },
+//   {
+//     q: "Will my data be saved anywhere?",
+//     a: "No data is stored on our end. Everything you enter stays in your browser session and is only used to generate your result.",
+//   },
+// ];
+
+// function FaqItem({ q, a }: { q: string; a: string }) {
+//   const [open, setOpen] = useState(false);
+//   return (
+//     <div className="overflow-hidden rounded-2xl border border-[#EEE7DA] bg-white shadow-[0_8px_20px_rgba(31,27,23,.05)]">
+//       <button
+//         type="button"
+//         onClick={() => setOpen((o) => !o)}
+//         className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
+//       >
+//         <span className="font-['Lato',sans-serif] text-[14.5px] font-semibold text-[#111827] sm:text-[15.5px]">
+//           {q}
+//         </span>
+//         <span
+//           className={`flex h-7 w-7 flex-none items-center justify-center rounded-full bg-[#F6F3EC] text-[13px] font-bold text-[#5B5546] transition-transform duration-300 ${
+//             open ? "rotate-45" : ""
+//           }`}
+//         >
+//           +
+//         </span>
+//       </button>
+//       <div
+//         className="grid transition-all duration-300 ease-in-out"
+//         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+//       >
+//         <div className="overflow-hidden">
+//           <p className="px-5 pb-5 font-['Lato',sans-serif] text-sm leading-[1.8] text-[#5B5546] sm:px-6 sm:pb-6">
+//             {a}
+//           </p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
 // export default function Calculators() {
 //   const [activeTab, setActiveTab] = useState<TabKey>("atta");
 //   const data = calculatorData[activeTab];
@@ -299,7 +396,7 @@
 //               </span>
 //               <div>
 //                 <p className="text-[13px] font-semibold leading-tight text-[#111827]">
-//                   No login, no cost
+//                   Free login, no cost
 //                 </p>
 //                 <p className="text-[11.5px] leading-tight text-[#847C6D]">
 //                   Answers in under 30 seconds
@@ -664,10 +761,10 @@
 
 //               <ul className="mt-3 list-none p-0">
 //                 {[
-//                   "Designed around chakki-atta economics — not generic food manufacturing models.",
+//                   "Designed around chakki-atta economics not generic food manufacturing models.",
 //                   "Separates fixed and variable costs the way a mill actually tracks them.",
 //                   "Accounts for bran credit, which most calculators ignore.",
-//                   "Updates dynamically — change wheat price, everything recalculates instantly.",
+//                   "Updates dynamically change wheat price, everything recalculates instantly.",
 //                   "Printable daily price sheet output for dealer and wholesale communication.",
 //                 ].map((text) => (
 //                   <li
@@ -681,10 +778,122 @@
 //             </section>
 //           </>
 //         )}
+
+//         {/* ================= HOW IT WORKS ================= */}
+//         <section className="mb-[60px]">
+//           <div className="mb-[30px] flex items-center gap-[10px] sm:gap-[15px]">
+//             <span
+//               className={`${gradientBg} h-7 w-1.5 rounded-[20px] sm:h-[34px]`}
+//             />
+//             <div>
+//               <h3 className="font-['Lato',sans-serif] text-[22px] font-bold text-[#111827] sm:text-xl">
+//                 How It Works
+//               </h3>
+//               <p className="mt-0.5 font-['Lato',sans-serif] text-[12.5px] text-[#847C6D]">
+//                 From blank fields to a decision-ready number in four steps.
+//               </p>
+//             </div>
+//           </div>
+
+//           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+//             {howItWorksSteps.map((s, i) => (
+//               <div
+//                 key={s.step}
+//                 className="relative overflow-hidden rounded-2xl border border-[#EEE7DA] bg-white p-6 shadow-[0_8px_20px_rgba(31,27,23,.05)]"
+//                 style={{
+//                   animation: "calcFadeUp .5s ease both",
+//                   animationDelay: `${i * 90}ms`,
+//                 }}
+//               >
+//                 <p
+//                   className="bg-clip-text text-[32px] font-extrabold leading-none text-transparent"
+//                   style={{
+//                     backgroundImage:
+//                       "linear-gradient(90deg, #F2843C 0%, #B56AD1 55%, #8B5FE0 100%)",
+//                   }}
+//                 >
+//                   {s.step}
+//                 </p>
+//                 <h4 className="mt-3 mb-2 font-['Lato',sans-serif] text-base font-semibold text-[#111827]">
+//                   {s.title}
+//                 </h4>
+//                 <p className="font-['Lato',sans-serif] text-sm leading-[1.7] text-[#5B5546]">
+//                   {s.text}
+//                 </p>
+//                 {i < howItWorksSteps.length - 1 && (
+//                   <span className="absolute right-4 top-6 hidden text-[#D8CFBC] lg:block">
+//                     →
+//                   </span>
+//                 )}
+//               </div>
+//             ))}
+//           </div>
+//         </section>
+
+//         {/* ================= FAQ ================= */}
+//         <section className="mb-[60px]">
+//           <div className="mb-[30px] flex items-center gap-[10px] sm:gap-[15px]">
+//             <span
+//               className={`${gradientBg} h-7 w-1.5 rounded-[20px] sm:h-[34px]`}
+//             />
+//             <div>
+//               <h3 className="font-['Lato',sans-serif] text-[22px] font-bold text-[#111827] sm:text-xl">
+//                 Frequently Asked Questions
+//               </h3>
+//               <p className="mt-0.5 font-['Lato',sans-serif] text-[12.5px] text-[#847C6D]">
+//                 Everything mill owners usually ask before their first run.
+//               </p>
+//             </div>
+//           </div>
+
+//           <div className="mx-auto flex max-w-[820px] flex-col gap-3.5">
+//             {faqs.map((f) => (
+//               <FaqItem key={f.q} q={f.q} a={f.a} />
+//             ))}
+//           </div>
+//         </section>
+
+//         {/* ================= CLOSING CTA ================= */}
+//         <section
+//           className={`${gradientBg} relative overflow-hidden rounded-[24px] px-6 py-12 text-center sm:px-10 sm:py-14`}
+//         >
+//           <div className="pointer-events-none absolute -left-16 -top-16 h-[240px] w-[240px] rounded-full bg-white/10 blur-[60px]" />
+//           <div className="pointer-events-none absolute -bottom-20 -right-10 h-[260px] w-[260px] rounded-full bg-white/10 blur-[70px]" />
+//           <h3 className="relative font-['Lato',sans-serif] text-[22px] font-bold leading-tight text-white sm:text-[28px] lg:text-[32px]">
+//             Stop guessing your numbers. Start knowing them.
+//           </h3>
+//           <p className="relative mx-auto mt-3 max-w-[560px] font-['Lato',sans-serif] text-sm leading-[1.8] text-white/90 sm:text-base">
+//             275+ mills already price, size, and plan with these calculators.
+//             Pick yours above and get your answer in under 30 seconds, free of
+//             cost and login.
+//           </p>
+//           <div className="relative mt-7 flex flex-wrap items-center justify-center gap-3">
+//             <Link
+//               href="/calculator"
+//               className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[#1F1B17] shadow-[0_10px_25px_rgba(0,0,0,.15)] transition-transform duration-300 hover:-translate-y-1"
+//             >
+//               Try Atta Price Calculator
+//               <svg
+//                 viewBox="0 0 24 24"
+//                 fill="none"
+//                 className="h-4 w-4 flex-none"
+//               >
+//                 <path
+//                   d="M5 12h13M13 6l6 6-6 6"
+//                   stroke="currentColor"
+//                   strokeWidth="2"
+//                   strokeLinecap="round"
+//                   strokeLinejoin="round"
+//                 />
+//               </svg>
+//             </Link>
+//           </div>
+//         </section>
 //       </section>
 //     </div>
 //   );
 // }
+
 "use client";
 
 import { useState } from "react";
@@ -872,27 +1081,6 @@ const howItWorksSteps = [
   },
 ];
 
-const testimonials = [
-  {
-    name: "Rakesh Agarwal",
-    mill: "Agarwal Flour Mills, Rajasthan",
-    quote:
-      "We were pricing atta on gut feel for years. The pricing calculator showed us we were leaving margin on the table every single day.",
-  },
-  {
-    name: "Suresh Patel",
-    mill: "Patel Chakki Udyog, Gujarat",
-    quote:
-      "The conveying calculator caught that our elevator was oversized by almost 30%. That's real money back every month.",
-  },
-  {
-    name: "Manoj Kumar",
-    mill: "Kumar Roller Flour Mills, UP",
-    quote:
-      "Ran the power saving calculator before we even spoke to the ProMiller team. The number it gave us was almost exactly what we ended up saving.",
-  },
-];
-
 const faqs = [
   {
     q: "Do I need to sign up or pay to use these calculators?",
@@ -1039,11 +1227,11 @@ export default function Calculators() {
             </p>
 
             {/* metrics bar */}
-            <div className="mt-8 inline-flex flex-wrap items-stretch divide-x divide-[#EEE7DA] overflow-hidden rounded-2xl border border-[#EEE7DA] bg-white shadow-[0_10px_25px_rgba(31,27,23,.05)]">
+            <div className="mt-8 grid grid-cols-2 gap-2.5 sm:inline-flex sm:flex-wrap sm:items-stretch sm:gap-0 sm:divide-x sm:divide-[#EEE7DA] sm:overflow-hidden sm:rounded-2xl sm:border sm:border-[#EEE7DA] sm:bg-white sm:shadow-[0_10px_25px_rgba(31,27,23,.05)]">
               {heroStats.map((s) => (
                 <div
                   key={s.label}
-                  className="flex flex-col justify-center gap-0.5 px-5 py-3.5 sm:px-6 sm:py-4"
+                  className="flex flex-col justify-center gap-0.5 rounded-xl border border-[#EEE7DA] bg-white px-4 py-3 shadow-[0_6px_16px_rgba(31,27,23,.04)] sm:rounded-none sm:border-0 sm:bg-transparent sm:px-6 sm:py-4 sm:shadow-none"
                 >
                   <p
                     className="bg-clip-text text-[19px] font-extrabold leading-none text-transparent sm:text-[22px]"
@@ -1230,7 +1418,7 @@ export default function Calculators() {
                         : undefined
                     }
                   />
-                  {data.href ? "Live calculator -> ready now" : "Coming soon"}
+                  {data.href ? "Live calculator —> ready now" : "Coming soon"}
                 </span>
               </div>
 
@@ -1422,16 +1610,15 @@ export default function Calculators() {
 
               <p className="mt-2.5 font-['Lato',sans-serif] text-sm leading-[1.9] text-[#443F38]">
                 Chakki atta mill owners, branded flour producers, bulk flour
-                suppliers, and any mill running an atta profit centre —
-                including mills selling to retailers, wholesalers, or direct
-                consumers.
+                suppliers, and any mill running an atta profit centre including
+                mills selling to retailers, wholesalers, or direct consumers.
               </p>
 
               <div
                 className={`${gradientBg} mt-[30px] rounded-xl px-[18px] py-[18px] text-center font-['Lato',sans-serif] text-sm leading-[1.7] text-white sm:px-[25px] sm:py-5 sm:text-base lg:text-[17px] [&_strong]:text-white [&_strong]:underline`}
               >
                 Enter today&apos;s wheat rate, your power tariff, and your bran
-                price — the calculator gives you your atta floor price in under{" "}
+                price the calculator gives you your atta floor price in under{" "}
                 <strong>30 seconds.</strong>
               </div>
             </section>
