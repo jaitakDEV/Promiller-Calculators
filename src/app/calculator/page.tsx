@@ -2,6 +2,7 @@
 
 // import { useMemo, useState } from "react";
 // import Image from "next/image";
+// import Link from "next/link";
 // import Stepper from "@/components/Stepper";
 // import LanguageToggle from "@/components/LanguageToggle";
 // import { useLang } from "@/components/LanguageProvider";
@@ -83,28 +84,54 @@
 
 //       {/* ================= BRAND HEADER ================= */}
 //       <header className="sticky top-0 z-20 border-b border-stone-200 bg-white/90 backdrop-blur print:hidden">
-//         <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-4 px-4 py-4 sm:px-5 sm:py-5">
-//           <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-//             <Image
-//               src="/logo-choyal.png"
-//               alt="Choyal"
-//               width={220}
-//               height={66}
-//               className="h-14 w-auto object-contain sm:h-16"
-//               priority
-//             />
-//             <span className="h-8 w-px flex-none bg-stone-200" />
-//             <Image
-//               src="/logo-rschoyal.png"
-//               alt="RS Choyal Group"
-//               width={160}
-//               height={48}
-//               className="h-10 w-auto object-contain sm:h-12"
-//               priority
-//             />
-//           </div>
-//           <div className="flex-none">
-//             <LanguageToggle />
+//         <div className="mx-auto max-w-[1180px] px-4 py-3 sm:px-5 sm:py-4">
+//           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+//             {/* logos row */}
+//             <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start sm:gap-4">
+//               <Image
+//                 src="/logo-choyal.png"
+//                 alt="Choyal"
+//                 width={220}
+//                 height={66}
+//                 className="h-12 w-auto object-contain sm:h-14 lg:h-16"
+//                 priority
+//               />
+//               <span className="h-8 w-px flex-none bg-stone-200" />
+//               <Image
+//                 src="/logo-rschoyal.png"
+//                 alt="RS Choyal Group"
+//                 width={160}
+//                 height={48}
+//                 className="h-9 w-auto object-contain sm:h-10 lg:h-12"
+//                 priority
+//               />
+//             </div>
+
+//             {/* controls row: home + language toggle */}
+//             <div className="flex items-center justify-between gap-3 sm:justify-end sm:gap-4">
+//               <Link
+//                 href="/"
+//                 aria-label="Home"
+//                 className="flex flex-none items-center gap-1.5 rounded-full border border-stone-200 bg-white px-3 py-1.5 text-stone-600 transition-colors hover:border-amber-700/30 hover:text-amber-800"
+//               >
+//                 <svg
+//                   xmlns="http://www.w3.org/2000/svg"
+//                   viewBox="0 0 24 24"
+//                   fill="none"
+//                   stroke="currentColor"
+//                   strokeWidth={2}
+//                   strokeLinecap="round"
+//                   strokeLinejoin="round"
+//                   className="h-4 w-4 flex-none"
+//                 >
+//                   <path d="M3 11.5 12 4l9 7.5" />
+//                   <path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9" />
+//                 </svg>
+//                 <span className="text-[12.5px] font-semibold">Home</span>
+//               </Link>
+
+//               <LanguageToggle />
+//             </div>
 //           </div>
 //         </div>
 //       </header>
@@ -207,6 +234,22 @@
 //                 {t("aboutTitle")}
 //               </h3>
 //               <p className="max-w-[560px] leading-relaxed">{t("aboutText")}</p>
+//             </div>
+//             <div className="flex flex-none items-center gap-3 opacity-80">
+//               <Image
+//                 src="/logo-choyal.png"
+//                 alt="Choyal"
+//                 width={110}
+//                 height={34}
+//                 className="h-6 w-auto object-contain sm:h-7"
+//               />
+//               <Image
+//                 src="/logo-rschoyal.png"
+//                 alt="RS Choyal Group"
+//                 width={110}
+//                 height={34}
+//                 className="h-6 w-auto object-contain sm:h-7"
+//               />
 //             </div>
 //           </div>
 //           <p className="mt-3 font-semibold text-stone-700">
@@ -356,7 +399,10 @@ export default function Calculator() {
         </div>
       </header>
 
-      <section className="relative overflow-hidden print:hidden">
+      {/* id="calc-top" — Stepper.tsx scrolls here on step change, so this
+          heading section stays visible along with the new step, instead of
+          the scroll jumping straight down to the stepper alone. */}
+      <section id="calc-top" className="relative overflow-hidden print:hidden">
         <div
           className="pointer-events-none absolute -top-36 left-1/2 h-[360px] w-[640px] -translate-x-1/2 rounded-full opacity-[0.12] blur-[100px]"
           style={{
