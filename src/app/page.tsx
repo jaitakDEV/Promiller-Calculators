@@ -185,27 +185,6 @@
 //   },
 // ];
 
-// const testimonials = [
-//   {
-//     name: "Rakesh Agarwal",
-//     mill: "Agarwal Flour Mills, Rajasthan",
-//     quote:
-//       "We were pricing atta on gut feel for years. The pricing calculator showed us we were leaving margin on the table every single day.",
-//   },
-//   {
-//     name: "Suresh Patel",
-//     mill: "Patel Chakki Udyog, Gujarat",
-//     quote:
-//       "The conveying calculator caught that our elevator was oversized by almost 30%. That's real money back every month.",
-//   },
-//   {
-//     name: "Manoj Kumar",
-//     mill: "Kumar Roller Flour Mills, UP",
-//     quote:
-//       "Ran the power saving calculator before we even spoke to the ProMiller team. The number it gave us was almost exactly what we ended up saving.",
-//   },
-// ];
-
 // const faqs = [
 //   {
 //     q: "Do I need to sign up or pay to use these calculators?",
@@ -352,11 +331,11 @@
 //             </p>
 
 //             {/* metrics bar */}
-//             <div className="mt-8 inline-flex flex-wrap items-stretch divide-x divide-[#EEE7DA] overflow-hidden rounded-2xl border border-[#EEE7DA] bg-white shadow-[0_10px_25px_rgba(31,27,23,.05)]">
+//             <div className="mt-8 grid grid-cols-2 gap-2.5 sm:inline-flex sm:flex-wrap sm:items-stretch sm:gap-0 sm:divide-x sm:divide-[#EEE7DA] sm:overflow-hidden sm:rounded-2xl sm:border sm:border-[#EEE7DA] sm:bg-white sm:shadow-[0_10px_25px_rgba(31,27,23,.05)]">
 //               {heroStats.map((s) => (
 //                 <div
 //                   key={s.label}
-//                   className="flex flex-col justify-center gap-0.5 px-5 py-3.5 sm:px-6 sm:py-4"
+//                   className="flex flex-col justify-center gap-0.5 rounded-xl border border-[#EEE7DA] bg-white px-4 py-3 shadow-[0_6px_16px_rgba(31,27,23,.04)] sm:rounded-none sm:border-0 sm:bg-transparent sm:px-6 sm:py-4 sm:shadow-none"
 //                 >
 //                   <p
 //                     className="bg-clip-text text-[19px] font-extrabold leading-none text-transparent sm:text-[22px]"
@@ -543,7 +522,7 @@
 //                         : undefined
 //                     }
 //                   />
-//                   {data.href ? "Live calculator -> ready now" : "Coming soon"}
+//                   {data.href ? "Live calculator —> ready now" : "Coming soon"}
 //                 </span>
 //               </div>
 
@@ -735,16 +714,15 @@
 
 //               <p className="mt-2.5 font-['Lato',sans-serif] text-sm leading-[1.9] text-[#443F38]">
 //                 Chakki atta mill owners, branded flour producers, bulk flour
-//                 suppliers, and any mill running an atta profit centre —
-//                 including mills selling to retailers, wholesalers, or direct
-//                 consumers.
+//                 suppliers, and any mill running an atta profit centre including
+//                 mills selling to retailers, wholesalers, or direct consumers.
 //               </p>
 
 //               <div
 //                 className={`${gradientBg} mt-[30px] rounded-xl px-[18px] py-[18px] text-center font-['Lato',sans-serif] text-sm leading-[1.7] text-white sm:px-[25px] sm:py-5 sm:text-base lg:text-[17px] [&_strong]:text-white [&_strong]:underline`}
 //               >
 //                 Enter today&apos;s wheat rate, your power tariff, and your bran
-//                 price — the calculator gives you your atta floor price in under{" "}
+//                 price the calculator gives you your atta floor price in under{" "}
 //                 <strong>30 seconds.</strong>
 //               </div>
 //             </section>
@@ -896,7 +874,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 type TabKey = "atta" | "conveying" | "power";
@@ -1054,9 +1032,13 @@ const tabOrder: {
   },
 ];
 
-// same gradient used across the ProMiller product buttons
-const gradientBg =
-  "bg-[linear-gradient(90deg,#F2843C_0%,#B56AD1_55%,#8B5FE0_100%)]";
+// CHARGE brand palette — solid brand green for buttons / accents / CTAs,
+// used everywhere the old orange-purple gradient used to live.
+const gradientBg = "bg-[#015436]";
+// Two-tone brand gradient (green → gold) reserved for decorative bg-clip-text
+// numerals and soft background glows — never used on buttons.
+const brandTextGradient = "linear-gradient(#015436)";
+const brandGlow = "linear-gradient(135deg, #015436, #fcb82e)";
 
 const howItWorksSteps = [
   {
@@ -1109,11 +1091,11 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen((o) => !o)}
         className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
       >
-        <span className="font-['Lato',sans-serif] text-[14.5px] font-semibold text-[#111827] sm:text-[15.5px]">
+        <span className="font-['Lato',sans-serif] text-[14.5px] font-semibold text-[#181818] sm:text-[15.5px]">
           {q}
         </span>
         <span
-          className={`flex h-7 w-7 flex-none items-center justify-center rounded-full bg-[#F6F3EC] text-[13px] font-bold text-[#5B5546] transition-transform duration-300 ${
+          className={`flex h-7 w-7 flex-none items-center justify-center rounded-full bg-[#E7F1EC] text-[13px] font-bold text-[#015436] transition-transform duration-300 ${
             open ? "rotate-45" : ""
           }`}
         >
@@ -1138,11 +1120,19 @@ export default function Calculators() {
   const [activeTab, setActiveTab] = useState<TabKey>("atta");
   const data = calculatorData[activeTab];
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   const LaunchButton = () =>
     data.href ? (
       <Link
         href={data.href}
-        className={`${gradientBg} group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden whitespace-nowrap rounded-xl px-8 py-4 text-base font-semibold text-white transition-transform duration-300 hover:-translate-y-1 md:w-auto`}
+        className={`${gradientBg} group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden whitespace-nowrap rounded-xl px-8 py-4 text-base font-semibold text-white transition-transform duration-300 hover:-translate-y-1 hover:bg-[#013f28] md:w-auto`}
         style={{ animation: "ctaPulseGlow 2.6s ease-in-out infinite" }}
       >
         <span
@@ -1199,17 +1189,14 @@ export default function Calculators() {
   ];
 
   return (
-    <div className="w-full bg-[#FBF9F5] font-sans text-[#1F1B17]">
+    <div className="w-full bg-[#FBF9F5] font-sans text-[#181818]">
       {/* ================= HERO ================= */}
       <section className="relative overflow-hidden bg-[#FBF9F5]">
         <div
-          className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full opacity-[0.16] blur-[110px]"
-          style={{
-            background:
-              "linear-gradient(90deg, #F2843C 0%, #B56AD1 55%, #8B5FE0 100%)",
-          }}
+          className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full opacity-[0.14] blur-[110px]"
+          style={{ background: brandGlow }}
         />
-        <div className="relative mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-10 px-[18px] pt-14 pb-12 sm:px-6 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pt-20 lg:pb-16 xl:px-0">
+        <div className="relative mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-10 px-5 pt-14 pb-12 sm:px-6 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pt-20 lg:pb-16 xl:px-6">
           {/* Left: copy */}
           <div>
             <span
@@ -1218,8 +1205,8 @@ export default function Calculators() {
               Built specifically for flour mills
             </span>
 
-            <h1 className="mt-5 max-w-[540px] font-['Lato',sans-serif] text-[28px] font-bold leading-[1.2] text-[#111827] sm:text-[36px] lg:text-[42px]">
-              Milling Calculators
+            <h1 className="mt-5 max-w-[540px] font-['Lato',sans-serif] text-[28px] font-extrabold leading-[1.2] text-[#181818] sm:text-[36px] lg:text-[42px]">
+              Milling <span className="text-[#015436]">Calculators</span>
             </h1>
             <p className="mt-4 max-w-[480px] text-sm leading-[1.8] text-[#443F38] sm:text-base lg:text-[17px]">
               Calculate atta pricing, conveying capacity, and power savings with
@@ -1235,10 +1222,7 @@ export default function Calculators() {
                 >
                   <p
                     className="bg-clip-text text-[19px] font-extrabold leading-none text-transparent sm:text-[22px]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(90deg, #F2843C 0%, #B56AD1 55%, #8B5FE0 100%)",
-                    }}
+                    style={{ backgroundImage: brandTextGradient }}
                   >
                     {s.value}
                   </p>
@@ -1270,7 +1254,7 @@ export default function Calculators() {
                 ✓
               </span>
               <div>
-                <p className="text-[13px] font-semibold leading-tight text-[#111827]">
+                <p className="text-[13px] font-semibold leading-tight text-[#181818]">
                   Free login, no cost
                 </p>
                 <p className="text-[11.5px] leading-tight text-[#847C6D]">
@@ -1283,7 +1267,7 @@ export default function Calculators() {
       </section>
 
       {/* ================= CALCULATOR SELECTOR ================= */}
-      <section className="mx-auto max-w-[1180px] px-[18px] pt-10 sm:px-6 xl:px-0">
+      <section className="mx-auto max-w-[1180px] px-5 pt-10 sm:px-6 xl:px-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {tabOrder.map(({ key, short, blurb, icon }) => {
             const isActive = activeTab === key;
@@ -1294,16 +1278,15 @@ export default function Calculators() {
                 onClick={() => setActiveTab(key)}
                 className={`group relative flex items-center gap-4 rounded-2xl border p-5 text-left transition-all duration-300 ${
                   isActive
-                    ? "border-transparent bg-white shadow-[0_14px_32px_rgba(139,95,224,.16)]"
+                    ? "border-transparent bg-white shadow-[0_14px_32px_rgba(1,84,54,.16)]"
                     : "border-[#EEE7DA] bg-white/60 hover:border-[#E2D8C2] hover:bg-white"
                 }`}
                 style={
                   isActive
                     ? {
                         boxShadow:
-                          "0 0 0 1.5px transparent, 0 14px 32px rgba(139,95,224,.16)",
-                        backgroundImage:
-                          "linear-gradient(white, white), linear-gradient(90deg, #F2843C 0%, #B56AD1 55%, #8B5FE0 100%)",
+                          "0 0 0 1.5px transparent, 0 14px 32px rgba(1,84,54,.16)",
+                        backgroundImage: `linear-gradient(white, white), ${brandTextGradient}`,
                         backgroundOrigin: "border-box",
                         backgroundClip: "padding-box, border-box",
                         border: "1.5px solid transparent",
@@ -1315,7 +1298,7 @@ export default function Calculators() {
                   className={`flex h-11 w-11 flex-none items-center justify-center rounded-xl text-[19px] transition-transform duration-300 ${
                     isActive
                       ? `${gradientBg} text-white`
-                      : "bg-[#F3EFE6] group-hover:scale-105"
+                      : "bg-[#EEF4F0] group-hover:scale-105"
                   }`}
                 >
                   {icon}
@@ -1323,7 +1306,7 @@ export default function Calculators() {
                 <div className="min-w-0">
                   <p
                     className={`text-[14.5px] font-bold leading-tight ${
-                      isActive ? "text-[#111827]" : "text-[#3A3650]"
+                      isActive ? "text-[#181818]" : "text-[#3A3650]"
                     }`}
                   >
                     {short}
@@ -1346,7 +1329,7 @@ export default function Calculators() {
       <div className="mb-9 sm:mb-[50px]" />
 
       {/* ================= MAIN LAYOUT ================= */}
-      <section className="mx-auto max-w-[1280px] px-[18px] pb-[50px] sm:px-6 lg:px-6 xl:px-0 xl:pb-[60px]">
+      <section className="mx-auto max-w-[1280px] px-5 pb-[50px] sm:px-6 lg:px-6 xl:px-6 xl:pb-[60px]">
         {/* animation keyframes, shared by the intro card, CTA and calculates grid.
             Plain style tag (not styled-jsx) on purpose: styled-jsx injects a
             scoped hash className onto every element in this component, which
@@ -1365,10 +1348,10 @@ export default function Calculators() {
           @keyframes ctaPulseGlow {
             0%,
             100% {
-              box-shadow: 0 10px 25px rgba(139, 95, 224, 0.25);
+              box-shadow: 0 10px 25px rgba(1, 84, 54, 0.25);
             }
             50% {
-              box-shadow: 0 14px 36px rgba(139, 95, 224, 0.45);
+              box-shadow: 0 14px 36px rgba(1, 84, 54, 0.45);
             }
           }
           @keyframes ctaShine {
@@ -1382,10 +1365,10 @@ export default function Calculators() {
           @keyframes statusPulse {
             0%,
             100% {
-              box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45);
+              box-shadow: 0 0 0 0 rgba(1, 84, 54, 0.45);
             }
             70% {
-              box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+              box-shadow: 0 0 0 6px rgba(1, 84, 54, 0);
             }
           }
         `}</style>
@@ -1398,19 +1381,19 @@ export default function Calculators() {
         >
           <div
             className="pointer-events-none absolute -right-24 -top-24 h-[220px] w-[220px] rounded-full opacity-[0.10] blur-[70px]"
-            style={{ background: "linear-gradient(135deg,#F2843C,#8B5FE0)" }}
+            style={{ background: brandGlow }}
           />
 
           <div className="relative flex flex-col items-start gap-[25px] lg:flex-row lg:items-center lg:justify-between lg:gap-10">
             <div className="max-w-[640px]">
               <div className="mb-4 flex flex-wrap items-center gap-3">
-                <span className="inline-flex items-center rounded-full bg-[#F6F3EC] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.06em] text-[#5B5546]">
+                <span className="inline-flex items-center rounded-full bg-[#F6F3EC] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.06em] text-[#181818]">
                   {data.tag}
                 </span>
                 <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[#847C6D]">
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
-                      data.href ? "bg-[#22C55E]" : "bg-[#D8A93E]"
+                      data.href ? "bg-[#015436]" : "bg-[#fcb82e]"
                     }`}
                     style={
                       data.href
@@ -1422,7 +1405,7 @@ export default function Calculators() {
                 </span>
               </div>
 
-              <h2 className="mb-4 font-['Lato',sans-serif] text-[22px] font-semibold leading-[1.3] text-[#111827] lg:text-[26px]">
+              <h2 className="mb-4 font-['Lato',sans-serif] text-[22px] font-semibold leading-[1.3] text-[#181818] lg:text-[26px]">
                 {data.title}
               </h2>
               <p className="font-['Lato',sans-serif] text-sm leading-[1.9] text-[#443F38] lg:text-[15px]">
@@ -1443,8 +1426,8 @@ export default function Calculators() {
               className={`${gradientBg} h-7 w-1.5 rounded-[20px] sm:h-[34px]`}
             />
             <div>
-              <h3 className="font-['Lato',sans-serif] text-[22px] font-bold text-[#111827] sm:text-xl">
-                What It Calculates
+              <h3 className="font-['Lato',sans-serif] text-[22px] font-extrabold text-[#181818] sm:text-xl">
+                What It <span className="text-[#fcb82e]">Calculates</span>
               </h3>
               <p className="mt-0.5 font-['Lato',sans-serif] text-[12.5px] text-[#847C6D]">
                 {data.calculates.length} variables feeding into one result.
@@ -1454,14 +1437,14 @@ export default function Calculators() {
 
           <div
             key={`calc-${activeTab}`}
-            className="flex gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:pb-0 lg:grid-cols-4"
+            className="flex gap-4 overflow-x-auto px-1 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4"
           >
             {data.calculates.map((box, i) => (
               <div
                 key={box.title}
-                className="group relative flex-none overflow-hidden rounded-xl border border-[#EEE7DA] bg-white p-[18px] shadow-[0_8px_20px_rgba(31,27,23,.05)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#E2D8C2] hover:shadow-[0_16px_30px_rgba(31,27,23,.10)] sm:flex-auto sm:p-[22px]"
+                className="group relative flex-none overflow-hidden rounded-xl border border-[#EEE7DA] bg-white p-[18px] shadow-[0_8px_20px_rgba(31,27,23,.05)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#BFDACE] hover:shadow-[0_16px_30px_rgba(31,27,23,.10)] sm:flex-auto sm:p-[22px]"
                 style={{
-                  minWidth: "85%",
+                  minWidth: "82%",
                   animation: "calcFadeUp .5s ease both",
                   animationDelay: `${i * 70}ms`,
                 }}
@@ -1469,10 +1452,10 @@ export default function Calculators() {
                 <span
                   className={`${gradientBg} absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100`}
                 />
-                <span className="mb-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#F6F3EC] font-['Lato',sans-serif] text-[11px] font-bold text-[#8A8171] transition-colors duration-300 group-hover:bg-[#1F1B17] group-hover:text-white">
+                <span className="mb-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#F6F3EC] font-['Lato',sans-serif] text-[11px] font-bold text-[#8A8171] transition-colors duration-300 group-hover:bg-[#015436] group-hover:text-white">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h4 className="mb-2 font-['Lato',sans-serif] text-base font-semibold text-[#111827]">
+                <h4 className="mb-2 font-['Lato',sans-serif] text-base font-semibold text-[#181818]">
                   {box.title}
                 </h4>
                 <p className="font-['Lato',sans-serif] text-sm leading-[1.6] text-[#5B5546]">
@@ -1480,6 +1463,8 @@ export default function Calculators() {
                 </p>
               </div>
             ))}
+            {/* trailing spacer so the last card never sits flush against the screen edge on mobile */}
+            <div className="w-1 flex-none sm:hidden" aria-hidden="true" />
           </div>
         </section>
 
@@ -1490,8 +1475,9 @@ export default function Calculators() {
               <span
                 className={`${gradientBg} h-7 w-1.5 rounded-[20px] sm:h-[34px]`}
               />
-              <h3 className="font-['Lato',sans-serif] text-[22px] font-bold text-[#111827] sm:text-xl">
-                Conveyor And Elevator Types Covered
+              <h3 className="font-['Lato',sans-serif] text-[22px] font-extrabold text-[#181818] sm:text-xl">
+                Conveyor And Elevator{" "}
+                <span className="text-[#015436]">Types Covered</span>
               </h3>
             </div>
 
@@ -1508,15 +1494,15 @@ export default function Calculators() {
               ].map(([label, text]) => (
                 <li
                   key={label}
-                  className="relative mb-3.5 pl-7 font-['Lato',sans-serif] text-sm leading-[1.7] text-[#443F38] before:absolute before:left-0 before:top-0.5 before:font-bold before:text-[#F2843C] before:content-['❯']"
+                  className="relative mb-3.5 pl-7 font-['Lato',sans-serif] text-sm leading-[1.7] text-[#443F38] before:absolute before:left-0 before:top-0.5 before:font-bold before:text-[#fcb82e] before:content-['❯']"
                 >
-                  <strong>{label}</strong> — {text}
+                  <strong className="text-[#181818]">{label}</strong> — {text}
                 </li>
               ))}
             </ul>
 
             <div
-              className={`${gradientBg} mt-[30px] rounded-xl px-[18px] py-[18px] text-center font-['Lato',sans-serif] text-sm leading-[1.7] text-white sm:px-[25px] sm:py-5 sm:text-base lg:text-[17px] [&_strong]:text-white [&_strong]:underline`}
+              className={`${gradientBg} mt-[30px] rounded-xl px-[18px] py-[18px] text-center font-['Lato',sans-serif] text-sm leading-[1.7] text-white sm:px-[25px] sm:py-5 sm:text-base lg:text-[17px] [&_strong]:text-[#fcb82e]`}
             >
               Most mills oversize conveyors by <strong>20–35%</strong>, paying
               for unused capacity in every electricity bill. This calculator
@@ -1524,12 +1510,12 @@ export default function Calculators() {
             </div>
 
             <div className="mt-[30px] rounded-2xl border border-[#EEE7DA] bg-white p-[18px] shadow-[0_8px_20px_rgba(31,27,23,.05)] sm:p-6">
-              <h4 className="mb-3 font-['Lato',sans-serif] text-xl text-[#111827] sm:text-[22px]">
-                Technical Basis
+              <h4 className="mb-3 font-['Lato',sans-serif] text-xl text-[#181818] sm:text-[22px]">
+                Technical <span className="text-[#015436]">Basis</span>
               </h4>
               <p className="font-['Lato',sans-serif] text-sm leading-[1.8] text-[#443F38]">
                 Calculations follow{" "}
-                <strong>
+                <strong className="text-[#181818]">
                   CEMA (Conveyor Equipment Manufacturers Association)
                 </strong>{" "}
                 standard engineering formulae, adapted for Indian mill operating
@@ -1548,8 +1534,8 @@ export default function Calculators() {
               <span
                 className={`${gradientBg} h-7 w-1.5 rounded-[20px] sm:h-[34px]`}
               />
-              <h3 className="font-['Lato',sans-serif] text-[22px] font-bold text-[#111827] sm:text-xl">
-                Input Variables
+              <h3 className="font-['Lato',sans-serif] text-[22px] font-extrabold text-[#181818] sm:text-xl">
+                Input <span className="text-[#fcb82e]">Variables</span>
               </h3>
             </div>
 
@@ -1563,7 +1549,7 @@ export default function Calculators() {
               ].map((text) => (
                 <li
                   key={text}
-                  className="relative mb-3.5 pl-7 font-['Lato',sans-serif] text-sm leading-[1.7] text-[#443F38] before:absolute before:left-0 before:top-0.5 before:font-bold before:text-[#F2843C] before:content-['❯']"
+                  className="relative mb-3.5 pl-7 font-['Lato',sans-serif] text-sm leading-[1.7] text-[#443F38] before:absolute before:left-0 before:top-0.5 before:font-bold before:text-[#fcb82e] before:content-['❯']"
                 >
                   {text}
                 </li>
@@ -1571,7 +1557,7 @@ export default function Calculators() {
             </ul>
 
             <div
-              className={`${gradientBg} mt-[30px] rounded-xl px-[18px] py-[18px] text-center font-['Lato',sans-serif] text-sm leading-[1.7] text-white sm:px-[25px] sm:py-5 sm:text-base lg:text-[17px] [&_strong]:text-white [&_strong]:underline`}
+              className={`${gradientBg} mt-[30px] rounded-xl px-[18px] py-[18px] text-center font-['Lato',sans-serif] text-sm leading-[1.7] text-white sm:px-[25px] sm:py-5 sm:text-base lg:text-[17px] [&_strong]:text-[#fcb82e]`}
             >
               A <strong>10-chakki</strong> mill running{" "}
               <strong>18 hours/day</strong> at <strong>₹8/kWh</strong> typically
@@ -1580,8 +1566,8 @@ export default function Calculators() {
             </div>
 
             <div className="mt-[30px] rounded-2xl border border-[#EEE7DA] bg-white p-[18px] shadow-[0_8px_20px_rgba(31,27,23,.05)] sm:p-6">
-              <h4 className="mb-3 font-['Lato',sans-serif] text-xl text-[#111827] sm:text-[22px]">
-                Why This Matters
+              <h4 className="mb-3 font-['Lato',sans-serif] text-xl text-[#181818] sm:text-[22px]">
+                Why This <span className="text-[#fcb82e]">Matters</span>
               </h4>
               <p className="font-['Lato',sans-serif] text-sm leading-[1.8] text-[#443F38]">
                 The Power Saving Calculator is not a marketing estimate — it is
@@ -1603,8 +1589,8 @@ export default function Calculators() {
                 <span
                   className={`${gradientBg} h-7 w-1.5 rounded-[20px] sm:h-[34px]`}
                 />
-                <h3 className="font-['Lato',sans-serif] text-[22px] font-bold text-[#111827] sm:text-xl">
-                  Who It Is For
+                <h3 className="font-['Lato',sans-serif] text-[22px] font-extrabold text-[#181818] sm:text-xl">
+                  Who It <span className="text-[#015436]">Is For</span>
                 </h3>
               </div>
 
@@ -1615,7 +1601,7 @@ export default function Calculators() {
               </p>
 
               <div
-                className={`${gradientBg} mt-[30px] rounded-xl px-[18px] py-[18px] text-center font-['Lato',sans-serif] text-sm leading-[1.7] text-white sm:px-[25px] sm:py-5 sm:text-base lg:text-[17px] [&_strong]:text-white [&_strong]:underline`}
+                className={`${gradientBg} mt-[30px] rounded-xl px-[18px] py-[18px] text-center font-['Lato',sans-serif] text-sm leading-[1.7] text-white sm:px-[25px] sm:py-5 sm:text-base lg:text-[17px] [&_strong]:text-[#fcb82e]`}
               >
                 Enter today&apos;s wheat rate, your power tariff, and your bran
                 price the calculator gives you your atta floor price in under{" "}
@@ -1628,8 +1614,8 @@ export default function Calculators() {
                 <span
                   className={`${gradientBg} h-7 w-1.5 rounded-[20px] sm:h-[34px]`}
                 />
-                <h3 className="font-['Lato',sans-serif] text-[22px] font-bold text-[#111827] sm:text-xl">
-                  Why It Is Different
+                <h3 className="font-['Lato',sans-serif] text-[22px] font-extrabold text-[#181818] sm:text-xl">
+                  Why It <span className="text-[#fcb82e]">Is Different</span>
                 </h3>
               </div>
 
@@ -1643,7 +1629,7 @@ export default function Calculators() {
                 ].map((text) => (
                   <li
                     key={text}
-                    className="relative mb-3.5 pl-7 font-['Lato',sans-serif] text-sm leading-[1.7] text-[#443F38] before:absolute before:left-0 before:top-0.5 before:font-bold before:text-[#F2843C] before:content-['❯']"
+                    className="relative mb-3.5 pl-7 font-['Lato',sans-serif] text-sm leading-[1.7] text-[#443F38] before:absolute before:left-0 before:top-0.5 before:font-bold before:text-[#fcb82e] before:content-['❯']"
                   >
                     {text}
                   </li>
@@ -1660,8 +1646,8 @@ export default function Calculators() {
               className={`${gradientBg} h-7 w-1.5 rounded-[20px] sm:h-[34px]`}
             />
             <div>
-              <h3 className="font-['Lato',sans-serif] text-[22px] font-bold text-[#111827] sm:text-xl">
-                How It Works
+              <h3 className="font-['Lato',sans-serif] text-[22px] font-extrabold text-[#181818] sm:text-xl">
+                How It <span className="text-[#015436]">Works</span>
               </h3>
               <p className="mt-0.5 font-['Lato',sans-serif] text-[12.5px] text-[#847C6D]">
                 From blank fields to a decision-ready number in four steps.
@@ -1681,14 +1667,11 @@ export default function Calculators() {
               >
                 <p
                   className="bg-clip-text text-[32px] font-extrabold leading-none text-transparent"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(90deg, #F2843C 0%, #B56AD1 55%, #8B5FE0 100%)",
-                  }}
+                  style={{ backgroundImage: brandTextGradient }}
                 >
                   {s.step}
                 </p>
-                <h4 className="mt-3 mb-2 font-['Lato',sans-serif] text-base font-semibold text-[#111827]">
+                <h4 className="mt-3 mb-2 font-['Lato',sans-serif] text-base font-semibold text-[#181818]">
                   {s.title}
                 </h4>
                 <p className="font-['Lato',sans-serif] text-sm leading-[1.7] text-[#5B5546]">
@@ -1711,8 +1694,9 @@ export default function Calculators() {
               className={`${gradientBg} h-7 w-1.5 rounded-[20px] sm:h-[34px]`}
             />
             <div>
-              <h3 className="font-['Lato',sans-serif] text-[22px] font-bold text-[#111827] sm:text-xl">
-                Frequently Asked Questions
+              <h3 className="font-['Lato',sans-serif] text-[22px] font-extrabold text-[#181818] sm:text-xl">
+                Frequently Asked{" "}
+                <span className="text-[#fcb82e]">Questions</span>
               </h3>
               <p className="mt-0.5 font-['Lato',sans-serif] text-[12.5px] text-[#847C6D]">
                 Everything mill owners usually ask before their first run.
@@ -1731,10 +1715,11 @@ export default function Calculators() {
         <section
           className={`${gradientBg} relative overflow-hidden rounded-[24px] px-6 py-12 text-center sm:px-10 sm:py-14`}
         >
-          <div className="pointer-events-none absolute -left-16 -top-16 h-[240px] w-[240px] rounded-full bg-white/10 blur-[60px]" />
+          <div className="pointer-events-none absolute -left-16 -top-16 h-[240px] w-[240px] rounded-full bg-[#fcb82e]/10 blur-[60px]" />
           <div className="pointer-events-none absolute -bottom-20 -right-10 h-[260px] w-[260px] rounded-full bg-white/10 blur-[70px]" />
           <h3 className="relative font-['Lato',sans-serif] text-[22px] font-bold leading-tight text-white sm:text-[28px] lg:text-[32px]">
-            Stop guessing your numbers. Start knowing them.
+            Stop guessing your numbers.{" "}
+            <span className="text-[#fcb82e]">Start knowing them.</span>
           </h3>
           <p className="relative mx-auto mt-3 max-w-[560px] font-['Lato',sans-serif] text-sm leading-[1.8] text-white/90 sm:text-base">
             275+ mills already price, size, and plan with these calculators.
@@ -1744,7 +1729,7 @@ export default function Calculators() {
           <div className="relative mt-7 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/calculator"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[#1F1B17] shadow-[0_10px_25px_rgba(0,0,0,.15)] transition-transform duration-300 hover:-translate-y-1"
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[#181818] shadow-[0_10px_25px_rgba(0,0,0,.15)] transition-transform duration-300 hover:-translate-y-1"
             >
               Try Atta Price Calculator
               <svg

@@ -13,8 +13,8 @@ export default function LanguageToggle() {
         aria-pressed={lang === "en"}
         className={`rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors ${
           lang === "en"
-            ? "bg-gradient-to-r from-amber-700 to-indigo-700 text-white"
-            : "text-stone-500 hover:text-stone-800"
+            ? "bg-[#015436] text-white"
+            : "text-[#fcb82e] hover:text-[#015436]"
         }`}
       >
         English
@@ -25,8 +25,8 @@ export default function LanguageToggle() {
         aria-pressed={lang === "hi"}
         className={`rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors ${
           lang === "hi"
-            ? "bg-gradient-to-r from-amber-700 to-indigo-700 text-white"
-            : "text-stone-500 hover:text-stone-800"
+            ? "bg-[#015436] text-white"
+            : "text-[#fcb82e] hover:text-[#015436]"
         }`}
       >
         हिंदी
