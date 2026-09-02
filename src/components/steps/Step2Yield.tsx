@@ -98,7 +98,7 @@ export default function Step2Yield({
   const { t } = useLang();
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
       {/* Form card — mobile pe neeche, desktop pe left */}
       <Card
         title={t("s2Title")}
@@ -150,7 +150,6 @@ export default function Step2Yield({
       {/* Side card — mobile pe upar, desktop pe right */}
       <Card
         accent="orange"
-        sticky
         title={t("sideTitle2")}
         subtitle={t("sideSub2")}
         className="order-1 lg:order-none"

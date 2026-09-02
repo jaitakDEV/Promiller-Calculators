@@ -149,7 +149,7 @@ export default function Step3Byproducts({
   const { t } = useLang();
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
       {/* Form card — mobile pe neeche, desktop pe left */}
       <Card
         title={t("s3Title")}
@@ -244,7 +244,6 @@ export default function Step3Byproducts({
       {/* Side card — mobile pe upar, desktop pe right */}
       <Card
         accent="orange"
-        sticky
         title={t("sideTitle3")}
         subtitle={t("sideSub3")}
         className="order-1 lg:order-none"

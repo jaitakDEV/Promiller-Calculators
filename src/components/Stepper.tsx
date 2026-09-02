@@ -204,7 +204,6 @@ export default function Stepper({
       aria-label="Calculator steps"
       className="relative mb-8 mt-3 scroll-mt-4 px-1"
     >
-      {/* Progress Track */}
       <div className="absolute left-[10%] right-[10%] top-[18px] h-[3px] rounded-full bg-stone-200">
         <div
           className="h-full rounded-full bg-[#e17f27] transition-all duration-500 ease-out"
@@ -226,7 +225,6 @@ export default function Stepper({
               aria-current={active ? "step" : undefined}
               className="group flex flex-1 flex-col items-center gap-2 bg-transparent px-1 py-1 outline-none"
             >
-              {/* Step Circle */}
               <span
                 className={`relative z-10 flex h-9 w-9 items-center justify-center rounded-full border-2 text-[13px] font-semibold transition-all duration-300 ${
                   active

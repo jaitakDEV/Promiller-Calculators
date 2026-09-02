@@ -109,8 +109,8 @@ export default function Step1WheatProcess({
   const { t } = useLang();
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-      {/* Form card — mobile pe neeche, desktop pe left */}
+    // <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
       <Card
         title={t("s1Title")}
         subtitle={t("s1Sub")}
@@ -161,7 +161,6 @@ export default function Step1WheatProcess({
       {/* Side card — mobile pe upar, desktop pe right */}
       <Card
         accent="orange"
-        sticky
         title={t("sideTitle1")}
         subtitle={t("sideSub1")}
         className="order-1 lg:order-none"
