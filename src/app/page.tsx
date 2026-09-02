@@ -877,6 +877,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 type TabKey = "atta" | "conveying" | "power";
 
 type CalculateBox = {
@@ -1190,6 +1191,7 @@ export default function Calculators() {
 
   return (
     <div className="w-full bg-[#FBF9F5] font-sans text-[#181818]">
+      <Navbar />
       {/* ================= HERO ================= */}
       <section className="relative overflow-hidden bg-[#FBF9F5]">
         <div
